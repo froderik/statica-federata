@@ -6,5 +6,6 @@ get '/' do
 end
 
 get '/users/:actor' do
-  "yolo #{params[:actor]}"
+  response = {'id': "https://mastodon.mazin.cc/users/#{params[:actor]}" }
+  JSON.generate(response)
 end
