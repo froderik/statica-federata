@@ -22,6 +22,10 @@ describe 'getting an actor' do
     @json['id'].should.equal "https://mastodon.mazin.cc/users/#{@actor_name}"
   end
 
+  it 'has a type' do
+    @json['type'].should.equal 'weblog'
+  end
+
   ['following', 'followers', 'inbox', 'outbox'].each do |action|
     it "has #{action}" do
       @json[action].should.equal "https://mastodon.mazin.cc/users/#{@actor_name}/#{action}"
