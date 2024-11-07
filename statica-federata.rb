@@ -16,3 +16,7 @@ get '/users/:actor' do
   }
   JSON.generate(response)
 end
+
+post '/users/:actor/inbox' do
+  "yolo"
+end
