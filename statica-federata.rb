@@ -13,6 +13,13 @@ get '/' do
 end
 
 get '/users/:actor' do
+  actor_name = params[:actor]
+  actor = settings.moneta_store["actor:#{actor_name}"]
+
+  unless actor
+    not_found { 'Actor not found'  }
+  end
+
   response = {
     'id': "https://mastodon.mazin.cc/users/#{params[:actor]}",
     'type': 'weblog',
