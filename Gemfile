@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'rackup'
+gem 'moneta'
 
 gem 'rake'
 
