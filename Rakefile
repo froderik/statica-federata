@@ -1,4 +1,9 @@
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
 
 task :test do
-  ruby "test/*.rb"
+  rspec "test/*.rb"
 end

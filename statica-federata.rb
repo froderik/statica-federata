@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
 require 'sinatra'
+require 'moneta'
+
+configure do
+  set(:moneta_store) do
+    Moneta.new :HashFile, dir: '~/.moneta/data'
+  end
+end
 
 get '/' do
   "Hello"

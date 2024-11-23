@@ -1,9 +1,9 @@
 require './statica-federata.rb'
-require 'test/spec'
+require 'rspec'
 require 'rack/test'
 require 'json'
 require 'securerandom'
-require './test/shared-test-module.rb'
+require './spec/shared-test-module.rb'
 
 describe 'getting an actor' do
   include SharedTest
@@ -11,22 +11,23 @@ describe 'getting an actor' do
   before :each do
     @actor_name = 'mazin'
     get "/users/#{@actor_name}"
-    last_response.should.be.ok
+    print last_response.status
+    expect(last_response.status).to be 200
     body = last_response.body
     @json = JSON.parse body
   end
 
   it 'has an id' do
-    @json['id'].should.equal "https://mastodon.mazin.cc/users/#{@actor_name}"
+    expect( @json['id'] ).to eq "https://mastodon.mazin.cc/users/#{@actor_name}"
   end
 
   it 'has a type' do
-    @json['type'].should.equal 'weblog'
+    expect( @json['type'] ).to eq 'weblog'
   end
 
   ['following', 'followers', 'inbox', 'outbox'].each do |action|
     it "has #{action}" do
-      @json[action].should.equal "https://mastodon.mazin.cc/users/#{@actor_name}/#{action}"
+      expect( @json[action] ).to eq "https://mastodon.mazin.cc/users/#{@actor_name}/#{action}"
     end
   end
 end
