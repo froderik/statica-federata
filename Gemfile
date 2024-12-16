@@ -4,6 +4,7 @@ gem 'sinatra'
 gem 'rackup'
 gem 'moneta'
 
+gem 'puma'
 
 gem 'rake'
 

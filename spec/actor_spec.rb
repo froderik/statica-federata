@@ -15,13 +15,13 @@ describe 'an actor' do
   before :all do
     @actor_name = 'mazin'
 
-    @storage = Moneta.new :HashFile, dir: '~/.moneta/data'
+    @storage = Moneta.new :HashFile, dir: '.moneta/data'
     save_actor @storage, @actor_name, '{}'
   end
 
-  describe 'getting an actor' do
+  describe '- get' do
 
-    describe 'is succesful' do
+    describe '- success -' do
 
       before :each do
         get "/users/#{@actor_name}"
@@ -52,7 +52,7 @@ describe 'an actor' do
     end
   end
 
-  describe 'following an actor' do
+  describe 'gather a following' do
 
     before :each do
       @follower_actor_name = 'follower'

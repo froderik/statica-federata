@@ -4,8 +4,10 @@ require 'moneta'
 
 configure do
   set(:moneta_store) do
-    Moneta.new :HashFile, dir: '~/.moneta/data'
+    Moneta.new :HashFile, dir: '.moneta/data'
   end
+
+  enable :logging
 end
 
 get '/' do
@@ -23,10 +25,10 @@ get '/users/:actor' do
   response = {
     'id': "https://mastodon.mazin.cc/users/#{params[:actor]}",
     'type': 'weblog',
-    'followers':  "https://mastodon.mazin.cc/users/#{params[:actor]}/followers",
-    'following':  "https://mastodon.mazin.cc/users/#{params[:actor]}/following",
-    'inbox':  "https://mastodon.mazin.cc/users/#{params[:actor]}/inbox",
-    'outbox':  "https://mastodon.mazin.cc/users/#{params[:actor]}/outbox",
+    'followers': "https://mastodon.mazin.cc/users/#{params[:actor]}/followers",
+    'following': "https://mastodon.mazin.cc/users/#{params[:actor]}/following",
+    'inbox': "https://mastodon.mazin.cc/users/#{params[:actor]}/inbox",
+    'outbox': "https://mastodon.mazin.cc/users/#{params[:actor]}/outbox",
   }
   JSON.generate(response)
 end
