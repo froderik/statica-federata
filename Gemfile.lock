@@ -1,12 +1,20 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     base64 (0.2.0)
+    bigdecimal (3.1.8)
+    crack (1.0.0)
+      bigdecimal
+      rexml
     diff-lcs (1.5.1)
+    hashdiff (1.1.2)
     moneta (1.6.0)
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.4)
+    public_suffix (6.0.1)
     puma (6.5.0)
       nio4r (~> 2.0)
     rack (3.1.8)
@@ -20,6 +28,7 @@ GEM
     rackup (2.2.1)
       rack (>= 3)
     rake (13.2.1)
+    rexml (3.4.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -41,6 +50,10 @@ GEM
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     tilt (2.4.0)
+    webmock (3.24.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
   ruby
@@ -54,6 +67,7 @@ DEPENDENCIES
   rake
   rspec
   sinatra
+  webmock
 
 BUNDLED WITH
    2.5.15
