@@ -34,5 +34,7 @@ get '/users/:actor' do
 end
 
 post '/users/:actor/inbox' do
-  "yolo"
+  request.body.rewind
+  data = JSON.parse request.body.read
+  JSON.generate data
 end

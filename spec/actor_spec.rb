@@ -1,6 +1,4 @@
 require './statica-federata.rb'
-require 'rspec'
-require 'rack/test'
 require 'json'
 require 'securerandom'
 require './spec/shared-test-module.rb'
@@ -60,26 +58,31 @@ describe 'an actor' do
     end
 
     def domain
-      "https://mastodon.mazin.cc"
+      "mastodon.mazin.cc"
     end
 
-    def identifier_from actor_name
-      "#{domain}/users/#{actor_name}"
+    def identifier_from(actor_name = @actor_name, domain = domain())
+      "https://#{domain}/users/#{actor_name}"
     end
 
     def random_activity_id
       "#{domain}/#{SecureRandom.uuid}"
     end
 
-    it 'follows' do
-      body = {
+    it 'is followed' do
+      payload = {
         'type' => 'Follow',
         'id' => random_activity_id,
-        'actor' => identifier_from(@follower_actor_name),
-        'object' => identifier_from(@actor_name)
+        'actor' => identifier_from(@follower_actor_name, 'follower.domain.mastodon'),
+        'object' => identifier_from()
       }
-      inbox_url = get( "/users/#{@actor_name}" ).body['inbox']
-      post inbox_url, body
+
+      body = JSON.generate payload
+
+      post "/users/#{@actor_name}/inbox", body
+
+      expect(last_response.body).to eq body
+      expect(last_response.status).to eq 200
     end
   end
 end
