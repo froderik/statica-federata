@@ -1,6 +1,7 @@
 require './statica-federata.rb'
 require 'json'
 require 'securerandom'
+require 'webmock/rspec'
 require './spec/shared-test-module.rb'
 
 def save_actor storage, name, value
@@ -71,18 +72,20 @@ describe 'an actor' do
 
     it 'is followed' do
       payload = {
-        'type' => 'Follow',
-        'id' => random_activity_id,
-        'actor' => identifier_from(@follower_actor_name, 'follower.domain.mastodon'),
-        'object' => identifier_from()
+        type: 'Follow',
+        id: random_activity_id,
+        actor: identifier_from(@follower_actor_name, 'follower.domain.mastodon'),
+        object: identifier_from()
       }
 
       body = JSON.generate payload
 
+      follow_confirmation_post = stub_request(:post, 'https://follower.domain.mastodon/users/follower/inbox')
+
       post "/users/#{@actor_name}/inbox", body
 
-      expect(last_response.body).to eq body
       expect(last_response.status).to eq 200
+      assert_requested(follow_confirmation_post)
     end
   end
 end
